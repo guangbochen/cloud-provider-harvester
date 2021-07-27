@@ -46,7 +46,8 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: cloud-config
-          hostPath:
-            path: {{ required "A valid cloudConfigPath required!" .Values.cloudConfigPath }}
-            type: File
+      - name: cloud-config
+        secret:
+          secretName: harvester-ccm-config
+          items:
+          - key: cloud-config
